@@ -33,7 +33,8 @@ def get_car_list(frame: np.ndarray) -> list[tuple]:
         if class_names[classid] == "dont_show": continue
         name = class_names[classid]
 
-        out_car_list.append((name, boxes))
+        box = tuple(map(int, box))
+        out_car_list.append((name, *box))
 
     return out_car_list
 

@@ -16,7 +16,8 @@ request_queue = RabbitQueue("request-q")
 async def handle_request(message: bytes):
     img_array = cv2.imdecode(np.frombuffer(message, dtype=np.uint8), -1)
     out = get_car_list(img_array)
-    print(out)
+    
+    await broker.publish(message=out, exchange=exchange, routing_key="response-q")
 
 # @app.after_startup
 # async def send_messages():
