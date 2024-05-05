@@ -20,7 +20,7 @@ net = cv.dnn.readNet('yolov4-tiny.weights', 'yolov4-tiny.cfg')
 net.setPreferableBackend(cv.dnn.DNN_BACKEND_CUDA)
 net.setPreferableTarget(cv.dnn.DNN_TARGET_CUDA_FP16)
  
-# Определенеи модели
+# Определене модели
 model = cv.dnn_DetectionModel(net)
 model.setInputParams(size=(416, 416), scale=1/255, swapRB=True)
 

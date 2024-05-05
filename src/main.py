@@ -5,15 +5,18 @@ import numpy as np
 import cv2
 from detector import get_car_list
 
+# Объявление брокера и самого приложения
 broker = RabbitBroker("amqp://localhost:5672")
 app = PropanApp(broker)
 
+# Определение обменника, его типа
 exchange = RabbitExchange("test-exchange", type=ExchangeType.DIRECT)
 
 request_queue = RabbitQueue("request-q")
 
 @broker.handle(request_queue, exchange)
 async def handle_request(message: bytes):
+    # Перевод байтов в данные для opencv
     img_array = cv2.imdecode(np.frombuffer(message, dtype=np.uint8), -1)
     out = get_car_list(img_array)
     
